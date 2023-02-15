@@ -13,4 +13,4 @@ if __name__=='__main__':
     a3=a1+a2
     a3.sort()
     print("the median of two sorted array:",findmedian(a3,len(a3)))
-
+    print()
