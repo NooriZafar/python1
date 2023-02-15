@@ -2,6 +2,7 @@ def longestsubstring(s):
     if len(set(s))==len(s):
         return len(s)
     substring=''
+    
     maxlen=1
     for i in s:
         if i not in substring:
