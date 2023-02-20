@@ -1,0 +1,63 @@
+textwrap:
+    
+     It is used for wrapping and fprmatting of plain text.This module provide formatting of text by adjusting
+ the line breaks in the input paragraph.
+
+
+Functions in textwrap:
+
+-->
+
+
+
+
+Input():
+	
+ 	takes in the value entered by the user in the form of a string.
+
+strip(): 
+
+	removes the spaces, leading and trailing characters in a string.
+
+split():
+	 Splits the string into a list of strings.
+
+---->input().strip().split() ;
+	is going to take an input and remove the string end and spaces and convert the string into a list of strings.
+
+>>> a = input().strip().split()
+
+Hi, this is an input
+
+>>> a
+
+['Hi,', 'this', 'is', 'an', 'input']
+
+
+
+map():
+	 this function takes in another function and an iterable (list, array, tuple etc) 
+		and applies the given function onto each item in the iterable.
+
+int(): 
+
+converts the passed argument into an integer datatype.
+
+---->map(int, input().split().strip()) :
+	is going to take in an string, covert it into a list of strings and 
+	then convert every element of that list into integers.
+
+a = map(int, input().strip().split())
+
+1 5 9 503 52
+
+>>> a
+
+<map object at 0x03705950>
+
+As you can see, the map() function returns an object. We can convert this object into a list again using the list() function. We can get certain elements of our list by performing slicing.
+
+[:1]: is used to get a portion of a list by specifying the list index. It specifies where to start slicing and where to stop. In this case, we will start at the 0th element and get all elements until before the 1st element.
+
+Hence, list (map (int, input().strip().split())) [:I] is going to take in a string, convert it into a list of strings and then convert every element of that list into integers and give the first element of our integer list.
+

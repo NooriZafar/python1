@@ -1,0 +1,372 @@
+Functions:
+_______________
+
+	A function is a collection of related assertions that performs a mathematical, analytical, 
+or evaluative operation.
+
+Imp of func:
+
+*By including functions, we can prevent repeating the same code block repeatedly in a program.
+
+*Python functions, once defined, can be called many times and from anywhere in a program.
+
+*If our Python program is large, it can be separated into numerous functions which is simple to track.
+
+Syntax of Python Function:
+
+def name_of_function( parameters ):  
+    """This is a docstring"""  
+    # code block  
+
+User-Defined Function:
+
+def square( num ):  
+    return num**2   
+object = square(9)  
+print( "The square of the number is: ", object )  
+
+
+calling function:
+
+square(9)--->calling func
+
+
+Function Arguments:
+
+1.Default arguments:we give value at the creation of function itself.
+
+def printing(a,b=49):
+if we give only obe value at the time of calling function then it takes default value
+printing(10)--->o/p:a=10,b=49
+
+
+2.Keyword arguments:mentioning which value is for what at the time of calling function
+
+ex:
+
+printing(b=50,a=55)--->o/p:a=55,b=50--># Calling function and passing arguments using keyword  
+printing(50,55)--> o/p:a=50,b=55---># Calling function and passing arguments without using keyword  
+
+
+3.Required arguments: providing crt order of arguments
+
+print(n,m)
+callinf funct with one argument is not accepted:primt(10)--->error
+print(10,20)-->accepted
+
+
+4.Variable-length arguments:
+
+	We can use special characters in Python functions to pass as many arguments as we want in a function. 
+There are two types of characters that we can use for this purpose:
+
+1. *args -These are Non-Keyword Arguments
+
+# Defining a function  
+def function( *args_list ):  
+    ans = []  
+    for l in args_list:  
+        ans.append( l.upper() )  
+    return ans  
+# Passing args arguments  
+object = function('Python', 'Functions', 'tutorial')  
+print( object )  -->['PYTHON', 'FUNCTIONS', 'TUTORIAL']
+  
+
+
+2. **kwargs - These are Keyword Arguments
+
+
+def function( **kargs_list ):  
+    ans = []  
+    for key, value in kargs_list.items():  
+        ans.append([key, value])  
+    return ans  
+# Paasing kwargs arguments  
+object = function(First = "Python", Second = "Functions", Third = "Tutorial")  
+print(object)  ---->[['First', 'Python'], ['Second', 'Functions'], ['Third', 'Tutorial']]
+
+
+
+
+
+Anonymous Functions:
+
+
+Syntax:
+
+Lambda functions have exactly one line in their syntax:
+
+------>  lambda [argument1 [,argument2... .argumentn]] : expression 
+
+
+
+Ex:
+
+
+# Defining a function  
+lambda_ = lambda argument1, argument2: argument1 + argument2;  
+  
+# Calling the function and passing values  
+print( "Value of the function is : ", lambda_( 20, 30 ) )  
+print( "Value of the function is : ", lambda_( 40, 50 ) ) 
+
+
+Output:
+
+Value of the function is :  50
+Value of the function is :  90 
+
+_____________________________________________________________________________________________________
+
+
+Arrays:
+	An array is defined as a collection of items that are stored at contiguous memory locations.
+ It is a container which can hold a fixed number of items, 
+and these items should be of the same type.
+
+
+****array index starts with 0
+
+Array operations:
+
+
+Traverse - It prints all the elements one by one.
+Insertion - It adds an element at the given index.
+Deletion - It deletes an element at the given index.
+Search - It searches an element using the given index or by the value.
+Update - It updates an element at the given index.
+
+
+
+ex:
+
+print("First element:", a[0])  -->print first element
+print("Second element:", a[1])  --->second element
+print("Second last element:", a[-1])  --->last elemnt
+
+
+--->length of array: print(len(arrayname))
+---->array concatention:c=a+b-- print(c)
+
+
+___________________________________________________________________________________________
+
+
+String:
+
+	 string is the collection of the characters surrounded by single quotes, double quotes, or triple quotes. 
+
+ex:
+
+s="hello"
+print(s[:])--> hello
+print(s[-12])-->out of range
+
+
+
+
+String Operators:
+
+
+Operator	Description
++		It is known as concatenation operator used to join the strings given either side of the operator.
+*		It is known as repetition operator. It concatenates the multiple copies of the same string.
+[]		It is known as slice operator. It is used to access the sub-strings of a particular string.
+[:]		It is known as range slice operator. It is used to access the characters from the specified range.
+in		It is known as membership operator. It returns if a particular sub-string is present in the specified string.
+
+not in	It is also a membership operator and does the exact reverse of in. It returns true 
+		if a particular substring is not present in the specified string.
+
+
+r/R		It is used to specify the raw string. Raw strings are used in the cases where we need 
+		to print the actual meaning of escape characters such as "C://python". To define any string as a raw string, 
+		the character r or R is followed by the string.
+
+
+%		It is used to perform string formatting. It makes use of the format specifiers used 
+		in C programming like %d or %f to map their values in python. We will discuss how formatting is done in python.
+
+
+Example:
+
+
+str = "Hello"     
+str1 = " world"    
+print(str*3) # prints HelloHelloHello    
+print(str+str1)# prints Hello world     
+print(str[4]) # prints o                
+print(str[2:4]); # prints ll                    
+print('w' in str) # prints false as w is not present in str    
+print('wo' not in str1) # prints false as wo is present in str1.     
+print(r'C://python37') # prints C://python37 as it is written    
+print("The string str : %s"%(str)) # prints The string str : Hello     
+
+
+
+Output:
+
+
+HelloHelloHello
+Hello world
+o
+ll
+False
+False
+C://python37
+The string str : Hello
+
+
+escape sequence:
+
+print("C:\\Users\\DEVANSH SHARMA\\Python32\\Lib")  
+print("This is the \n multiline quotes")  
+print("This is \x48\x45\x58 representation")  
+
+output:
+
+C:\Users\DEVANSH SHARMA\Python32\Lib
+This is the 
+ multiline quotes
+This is HEX representation
+
+
+
+format() method:
+
+# Using Curly braces  
+print("{} and {} both are the best friend".format("Devansh","Abhishek"))  
+  
+#Positional Argument  
+print("{1} and {0} best players ".format("Virat","Rohit"))  
+  
+#Keyword Argument  
+print("{a},{b},{c}".format(a = "James", b = "Peter", c = "Ricky"))  
+
+
+output:
+
+
+Devansh and Abhishek both are the best friend
+Rohit and Virat best players 
+James,Peter,Ricky 
+
+
+Python String Formatting Using % Operator:
+
+
+Integer = 10;    
+Float = 1.290    
+String = "Devansh"    
+print("Hi I am Integer ... My value is %d\nHi I am float ... My value is %f\nHi I am string ... My value is %s"%(Integer,Float,String))    
+
+output:
+
+Hi I am Integer ... My value is 10
+Hi I am float ... My value is 1.290000
+Hi I am string ... My value is Devansh
+
+_____________________________________________________________________________________________________
+
+
+
+#adding of two matrix
+
+X = [[1,2,3],  
+       [4,5,6],  
+       [7,8,9]]  
+  
+Y = [[10,11,12],  
+       [13,14,15],  
+       [16,17,18]]  
+  
+result = [[0,0,0],  
+                [0,0,0],  
+                [0,0,0]]
+
+# iterate through rows  
+for i in range(len(X)):  
+   # iterate through columns  
+   for j in range(len(X[0])):  
+       result[i][j] = X[i][j] + Y[i][j]
+
+
+#result = [[X[i][j] + Y[i][j]  for j in range(len(X[0]))] for i in range(len(X))]
+
+       
+for r in result:  
+   print(r)  
+
+
+print(range(len(X)))
+print(range(len(X[0])))
+
+
+
+
+
+# Program to multiply two matrices using nested loops
+
+# 3x3 matrix
+X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+# 3x4 matrix
+Y = [[5,8,1,2],
+    [6,7,3,0],
+    [4,5,9,1]]
+# result is 3x4
+result = [[0,0,0,0],
+         [0,0,0,0],
+         [0,0,0,0]]
+
+# iterate through rows of X
+for i in range(len(X)):
+   # iterate through columns of Y
+   for j in range(len(Y[0])):
+       # iterate through rows of Y
+       for k in range(len(Y)):
+           result[i][j] += X[i][k] * Y[k][j]
+
+for r in result:
+   print(r)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
