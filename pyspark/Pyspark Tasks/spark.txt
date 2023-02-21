@@ -1,0 +1,28 @@
+# To create ss using function
+
+from pyspark.sql import SparkSession 
+def spark_conn():
+	spark=SparkSession.builder.appName('practise').getOrCreate()
+	return spark
+
+# operation that can b performed on tables..... df1, df2 are dataframe and d_out is resultant dataframe
+
+d_out.select("emp_id","name").show()
+d_out[d_out.name.isin("suhana","noori")].show()
+d_out.select("name","age",d_out.name.like("%S%")).show()
+d_out.select(d_out.name.substr(1,3).alias("shortname")).show() 
+d_out.filter(df2.dept_id > 30).show()
+d_out.filter("gender == 'M'").show()
+d_out.filter(df1.name.startswith("S")).show()
+d_out.filter(df1.name.endswith("e")).show()
+
+
+### to add prefix to the existing table
+
+def addPrefix(df1,prefix):
+	for i in df1.columns:
+		df1=df1.withColumnRenamed(i,'{}{}'.format(prefix,i))
+	return df1
+
+
+d_out.filter(d_out.columns.isNotNull()).show()

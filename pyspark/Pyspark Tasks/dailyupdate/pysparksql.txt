@@ -1,0 +1,249 @@
+import pyspark
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+#creating sparksession and employee table
+
+spark=SparkSession.builder.appName('practice').getOrCreate()
+simpleData = [("James","Sales","NY",90000,34,10000),
+    ("Michael","Sales","NY",86000,56,20000),
+    ("Robert","Sales","CA",81000,30,23000),
+    ("Maria","Finance","CA",90000,24,23000),
+    ("Raman","Finance","CA",99000,40,24000),
+    ("Scott","Finance","NY",83000,36,19000),
+    ("Jen","Finance","NY",79000,53,15000),
+    ("Jeff","Marketing","CA",80000,25,18000),
+    ("Kumar","Marketing","NY",91000,50,21000)
+  ]
+
+schema = ["employee_name","department","state","salary","age","bonus"]
+df = spark.createDataFrame(data=simpleData, schema = schema)
+df.printSchema()
+df.show(truncate=False)
+
+output:
+
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- state: string (nullable = true)
+ |-- salary: long (nullable = true)
+ |-- age: long (nullable = true)
+ |-- bonus: long (nullable = true)
+
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|James        |Sales     |NY   |90000 |34 |10000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
++-------------+----------+-----+------+---+-----+
+
+
+--->before performing sql queries we have to create view for the table
+
+   df.createOrReplaceTempView("df")
+
+
+#sql query to displayall rows in table
+
+spark.sql("select * from df").show()
+
+output:
+
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|        James|     Sales|   NY| 90000| 34|10000|
+|      Michael|     Sales|   NY| 86000| 56|20000|
+|       Robert|     Sales|   CA| 81000| 30|23000|
+|        Maria|   Finance|   CA| 90000| 24|23000|
+|        Raman|   Finance|   CA| 99000| 40|24000|
+|        Scott|   Finance|   NY| 83000| 36|19000|
+|          Jen|   Finance|   NY| 79000| 53|15000|
+|         Jeff| Marketing|   CA| 80000| 25|18000|
+|        Kumar| Marketing|   NY| 91000| 50|21000|
++-------------+----------+-----+------+---+-----+
+
+
+#to display count of rows in the table
+
+spark.sql("select count(state) from df").show()
+
+output:
+
++------------+
+|count(state)|
++------------+
+|           9|
++------------+
+
+#giving alias name to column
+
+spark.sql("select employee_name as empname from df").show()
+
+output:
+
++-------+
+|empname|
++-------+
+|  James|
+|Michael|
+| Robert|
+|  Maria|
+|  Raman|
+|  Scott|
+|    Jen|
+|   Jeff|
+|  Kumar|
++-------+
+
+#displaying details of employees whose salary is greater than 85000
+
+spark.sql("select * from df where salary > 85000").show()
+
+output:
+
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|        James|     Sales|   NY| 90000| 34|10000|
+|      Michael|     Sales|   NY| 86000| 56|20000|
+|        Maria|   Finance|   CA| 90000| 24|23000|
+|        Raman|   Finance|   CA| 99000| 40|24000|
+|        Kumar| Marketing|   NY| 91000| 50|21000|
++-------------+----------+-----+------+---+-----+
+
+
+#displaying employee names starts with 'M'
+
+spark.sql("select employee_name from df where employee_name like 'M%'").show()
+
+output:
+
++-------------+
+|employee_name|
++-------------+
+|      Michael|
+|        Maria|
++-------------+
+
+
+#displaying employee details whose name ends with 'T'
+
+spark.sql("select * from df where employee_name like '%t'").show()
+
+output:
+
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|       Robert|     Sales|   CA| 81000| 30|23000|
+|        Scott|   Finance|   NY| 83000| 36|19000|
++-------------+----------+-----+------+---+-----+
+
+
+#Displaying employee names in uppercase
+
+spark.sql("select UPPER(employee_name) as Employee_Name from df").show()
+
+output:
+
++-------------+
+|Employee_Name|
++-------------+
+|        JAMES|
+|      MICHAEL|
+|       ROBERT|
+|        MARIA|
+|        RAMAN|
+|        SCOTT|
+|          JEN|
+|         JEFF|
+|        KUMAR|
++-------------+
+
+
+#Displaying substring of a given string
+
+spark.sql("select substring(employee_name, 1, 4) as emp_name from df").show()
+
+output:
+
++--------+
+|emp_name|
++--------+
+|    Jame|
+|    Mich|
+|    Robe|
+|    Mari|
+|    Rama|
+|    Scot|
+|     Jen|
+|    Jeff|
+|    Kuma|
++--------+
+
+
+#Displaying maximum salary 
+
+spark.sql("select Max(salary) from df").show()
+
+output:
+
++-----------+
+|max(salary)|
++-----------+
+|      99000|
++-----------+
+
+#displaying names using for loop
+
+df_table=spark.sql("select * from df")
+tnames=df_table.rdd.map(lambda p: p.employee_name).collect()
+
+for name in tnames:
+  print(name)
+
+output:
+
+James
+Michael
+Robert
+Maria
+Raman
+Scott
+Jen
+Jeff
+Kumar
+
+#displaying salary using between 
+
+spark.sql("select * from df where salary between 80000 and 90000").show()
+
+output:
+
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|        James|     Sales|   NY| 90000| 34|10000|
+|      Michael|     Sales|   NY| 86000| 56|20000|
+|       Robert|     Sales|   CA| 81000| 30|23000|
+|        Maria|   Finance|   CA| 90000| 24|23000|
+|        Scott|   Finance|   NY| 83000| 36|19000|
+|         Jeff| Marketing|   CA| 80000| 25|18000|
++-------------+----------+-----+------+---+-----+
+
+
+
+
+
+
+
